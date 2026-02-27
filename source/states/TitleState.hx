@@ -116,7 +116,7 @@ class TitleState extends MusicBeatState
 	var swagShader:ColorSwap = null;
 
 	function startIntro()
-	override function create()
+	override; function create()
 	{
 		persistentUpdate = true;
 		if (!initialized && FlxG.sound.music == null)

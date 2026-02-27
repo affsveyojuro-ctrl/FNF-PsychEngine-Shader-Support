@@ -5,7 +5,7 @@ import flixel.effects.FlxFlicker;
 import lime.app.Application;
 import states.editors.MasterEditorMenu;
 import options.OptionsState;
-import GlitchEffect;
+import shaders.Shaders;
 
 enum MainMenuColumn {
 	LEFT;

@@ -109,7 +109,7 @@ class PlayState extends MusicBeatState
 
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
-	public var songSpeedType:String = "multiplicative";
+	public var songSpeedType:String = "multiplicate";
 	public var noteKillOffset:Float = 350;
 
 	public var playbackRate(default, set):Float = 1;

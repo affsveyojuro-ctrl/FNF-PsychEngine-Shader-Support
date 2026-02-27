@@ -53,7 +53,7 @@ class Main extends Sprite
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
 		initialState: TitleState, // initial game state
-		framerate: 60, // default framerate
+		framerate: 120, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
@@ -222,7 +222,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
+		path = "./crash/" + "I-Not-Reveal-The-Engine_" + dateNow + ".hx";
 
 		for (stackItem in callStack)
 		{
@@ -241,7 +241,7 @@ class Main extends Sprite
 		#if officialBuild
 		errMsg += "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine";
 		#end
-		errMsg += "\n\n> Crash Handler written by: sqirra-rng";
+		errMsg += "\n\n> Crash Handler written by: Nothing";
 
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
@@ -251,7 +251,7 @@ class Main extends Sprite
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		Application.current.window.alert(errMsg, "Error!");
+		Application.current.window.alert(errMsg, "Error Alert AAAA!");
 		#if DISCORD_ALLOWED
 		DiscordClient.shutdown();
 		#end

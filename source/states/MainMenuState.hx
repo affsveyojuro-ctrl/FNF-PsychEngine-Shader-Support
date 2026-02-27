@@ -23,6 +23,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	var leftItem:FlxSprite;
 	var rightItem:FlxSprite;
+	var glitchEffect:GlitchEffect;
 
 	//Centered/Text options
 	var optionShit:Array<String> = [
@@ -62,6 +63,9 @@ class MainMenuState extends MusicBeatState
 		bg.updateHitbox();
 		bg.screenCenter();
 		add(bg);
+		
+		glitchEffect = new GlitchEffect(2.5, 5.0, 0.02);
+        bg.shader = glitchEffect.shader;
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -347,7 +351,7 @@ class MainMenuState extends MusicBeatState
 			}
 			#end
 		}
-
+        glitchEffect.update(elapsed);
 		super.update(elapsed);
 	}
 

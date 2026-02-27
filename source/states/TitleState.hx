@@ -90,7 +90,98 @@ class TitleState extends MusicBeatState
 		}
 
 		if (FlxG.save.data.weekCompleted != null)
-		{
+	function startIntro()
+{
+	persistentUpdate = true;
+	if (!initialized && FlxG.sound.music == null)
+		FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+
+	loadJsonData();
+	#if TITLE_SCREEN_EASTER_EGG easterEggData(); #end
+	Conductor.bpm = musicBPM;
+
+	logoBl = new FlxSprite(logoPosition.x, logoPosition.y);
+	logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
+	logoBl.antialiasing = ClientPrefs.data.antialiasing;
+
+	logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
+	logoBl.animation.play('bump');
+	logoBl.updateHitbox();
+
+	gfDance = new FlxSprite(gfPosition.x, gfPosition.y);
+	gfDance.antialiasing = ClientPrefs.data.antialiasing;
+	
+	if(ClientPrefs.data.shaders)
+	{
+		swagShader = new ColorSwap();
+		gfDance.shader = swagShader.shader;
+		logoBl.shader = swagShader.shader;
+	}
+	
+	gfDance.frames = Paths.getSparrowAtlas(characterImage);
+	if(!useIdle)
+	{
+		gfDance.animation.addByIndices('danceLeft', animationName, danceLeftFrames, "", 24, false);
+		gfDance.animation.addByIndices('danceRight', animationName, danceRightFrames, "", 24, false);
+		gfDance.animation.play('danceRight');
+	}
+	else
+	{
+		gfDance.animation.addByPrefix('idle', animationName, 24, false);
+		gfDance.animation.play('idle');
+	}
+
+
+	var animFrames:Array<FlxFrame> = [];
+	titleText = new FlxSprite(enterPosition.x, enterPosition.y);
+	titleText.frames = Paths.getSparrowAtlas('titleEnter');
+	@:privateAccess
+	{
+		titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
+		titleText.animation.findByPrefix(animFrames, "ENTER FREEZE");
+	}
+	
+	if (newTitle = animFrames.length > 0)
+	{
+		titleText.animation.addByPrefix('idle', "ENTER IDLE", 24);
+		titleText.animation.addByPrefix('press', ClientPrefs.data.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
+	}
+	else
+	{
+		titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
+		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
+	}
+	titleText.animation.play('idle');
+	titleText.updateHitbox();
+
+	blackScreen = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+	blackScreen.scale.set(FlxG.width, FlxG.height);
+	blackScreen.updateHitbox();
+	credGroup.add(blackScreen);
+
+	credTextShit = new Alphabet(0, 0, "", true);
+	credTextShit.screenCenter();
+	credTextShit.visible = false;
+
+	ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
+	ngSpr.visible = false;
+	ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
+	ngSpr.updateHitbox();
+	ngSpr.screenCenter(X);
+	ngSpr.antialiasing = ClientPrefs.data.antialiasing;
+
+	add(gfDance);
+	add(logoBl); //FNF Logo
+	add(titleText); //"Press Enter to Begin" text
+	add(credGroup);
+	add(ngSpr);
+
+	if (initialized)
+		skipIntro();
+	else
+		initialized = true;
+}
+	{
 			StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
 		}
 
@@ -115,100 +206,7 @@ class TitleState extends MusicBeatState
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
 
-	function startIntro()
-	override function create()
-	{
-		persistentUpdate = true;
-		if (!initialized && FlxG.sound.music == null)
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-
-		loadJsonData();
-		#if TITLE_SCREEN_EASTER_EGG easterEggData(); #end
-		Conductor.bpm = musicBPM;
-
-		logoBl = new FlxSprite(logoPosition.x, logoPosition.y);
-		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
-		logoBl.antialiasing = ClientPrefs.data.antialiasing;
-
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
-		logoBl.updateHitbox();
-
-		gfDance = new FlxSprite(gfPosition.x, gfPosition.y);
-		gfDance.antialiasing = ClientPrefs.data.antialiasing;
-		
-		if(ClientPrefs.data.shaders)
-		{
-			swagShader = new ColorSwap();
-			gfDance.shader = swagShader.shader;
-			logoBl.shader = swagShader.shader;
-		}
-		
-		gfDance.frames = Paths.getSparrowAtlas(characterImage);
-		if(!useIdle)
-		{
-			gfDance.animation.addByIndices('danceLeft', animationName, danceLeftFrames, "", 24, false);
-			gfDance.animation.addByIndices('danceRight', animationName, danceRightFrames, "", 24, false);
-			gfDance.animation.play('danceRight');
-		}
-		else
-		{
-			gfDance.animation.addByPrefix('idle', animationName, 24, false);
-			gfDance.animation.play('idle');
-		}
-
-
-		var animFrames:Array<FlxFrame> = [];
-		titleText = new FlxSprite(enterPosition.x, enterPosition.y);
-		titleText.frames = Paths.getSparrowAtlas('titleEnter');
-		@:privateAccess
-		{
-			titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
-			titleText.animation.findByPrefix(animFrames, "ENTER FREEZE");
-		}
-		
-		if (newTitle = animFrames.length > 0)
-		{
-			titleText.animation.addByPrefix('idle', "ENTER IDLE", 24);
-			titleText.animation.addByPrefix('press', ClientPrefs.data.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
-		}
-		else
-		{
-			titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
-			titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
-		}
-		titleText.animation.play('idle');
-		titleText.updateHitbox();
-
-		blackScreen = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		blackScreen.scale.set(FlxG.width, FlxG.height);
-		blackScreen.updateHitbox();
-		credGroup.add(blackScreen);
-
-		credTextShit = new Alphabet(0, 0, "", true);
-		credTextShit.screenCenter();
-		credTextShit.visible = false;
-
-		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
-		ngSpr.visible = false;
-		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
-		ngSpr.updateHitbox();
-		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = ClientPrefs.data.antialiasing;
-
-		add(gfDance);
-		add(logoBl); //FNF Logo
-		add(titleText); //"Press Enter to Begin" text
-		add(credGroup);
-		add(ngSpr);
-
-		if (initialized)
-			skipIntro();
-		else
-			initialized = true;
-
-		// credGroup.add(credTextShit);
-	}
+	
 
 	// JSON data
 	var characterImage:String = 'gfDanceTitle';

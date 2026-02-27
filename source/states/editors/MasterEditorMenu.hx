@@ -10,7 +10,6 @@ import states.FreeplayState;
 class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
-		'Chart Editor',
 		'Character Editor',
 		'Stage Editor',
 		'Week Editor',

@@ -34,9 +34,9 @@ class FPSCounter extends TextField
 		selectable = false;
 		mouseEnabled = false;
 		defaultTextFormat = new TextFormat("_sans", 14, color);
-		autoSize = LEFT;
+		autoSize = RIGHT;
 		multiline = true;
-		text = "FPS: ";
+		text = "Current FPS: ";
 
 		times = [];
 	}
@@ -61,7 +61,7 @@ class FPSCounter extends TextField
 	}
 
 	public dynamic function updateText():Void { // so people can override it in hscript
-		text = 'FPS: ${currentFPS}'
+		text = 'Current FPS: ${currentFPS}'
 		+ '\nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';
 
 		textColor = 0xFFFFFFFF;

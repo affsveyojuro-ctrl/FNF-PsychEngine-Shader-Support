@@ -23,7 +23,7 @@ class FPSCounter extends TextField
 
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
+	public function new(x:Float = 15, y:Float = 10, color:Int = 0x000000)
 	{
 		super();
 
@@ -34,7 +34,7 @@ class FPSCounter extends TextField
 		selectable = false;
 		mouseEnabled = false;
 		defaultTextFormat = new TextFormat("_sans", 14, color);
-		autoSize = RIGHT;
+		autoSize = LEFT;
 		multiline = true;
 		text = "Current FPS: ";
 

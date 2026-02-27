@@ -1539,13 +1539,6 @@ class BlockedGlitchShader extends FlxShader
 
 class WiggleEffectLua extends Effect
 {
-  public var shader(default, null):WiggleShader = new WiggleShader();
-  public var effectType(default, set):WiggleEffectType = DREAMY;
-  public var waveSpeed(default, set):Float = 0;
-  public var waveFrequency(default, set):Float = 0;
-  public var waveAmplitude(default, set):Float = 0;
-  public var verticalStrength(default, set):Float = 1;
-  public var horizontalStrength(default, set):Float = 1;
 
   public function new(typeOfEffect:String = 'DREAMY', waveSpeed:Float = 0, waveFrequency:Float = 0, waveAmplitude:Float = 0, ?verticalStrength:Float = 1,
       ?horizontalStrength:Float = 1):Void

@@ -1,8 +1,8 @@
-package;
+package shaders;
 
 // STOLEN FROM HAXEFLIXEL DEMO LOL
-import WiggleEffect.WiggleEffectType;
-import WiggleEffect.WiggleShader;
+//import WiggleEffect.WiggleEffectType;
+//import WiggleEffect.WiggleShader;
 import flixel.system.FlxAssets.FlxShader;
 import openfl.Lib;
 import openfl.display.BitmapData;

@@ -66,7 +66,6 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	super.create();
-	startIntro();
 	{
 		Paths.clearStoredMemory();
 		super.create();

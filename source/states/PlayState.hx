@@ -5,7 +5,8 @@ import backend.StageData;
 import backend.WeekData;
 import backend.Song;
 import backend.Rating;
-
+// Shaders
+import shaders.Shaders;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSubState;
